@@ -1,0 +1,41 @@
+{
+  "name": "puppet-agate",
+  "version": "0.1.0-rc0",
+  "author": "Paul Houghton <paul4hough@gmail.com>",
+  "summary": "install and configure agate service",
+  "license": "GPLv3",
+  "source": "https://github.com/pahoughton/puppet-agate.git",
+  "project_page": "https://github.com/pahoughton/puppet-agate.git",
+  "issue_url": "https://github.com/pahoughton/puppet-agate/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.25.0 < 6.0.0"
+    },
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.10.0 < 7.0.0"
+    }
+  ],
+  "tags": [
+    "prometheus",
+    "monitoring",
+    "alerting"
+  ]
+}
