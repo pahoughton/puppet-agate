@@ -1,0 +1,19 @@
+# 2019-01-05 (cc) <paul4hough@gmail.com> -*- conf-unix -*-
+#
+[Unit]
+Description=prometheus alertmanager alert gateway
+Documentation=https://gitlab.com/pahoughton/agate
+After=network-online.target
+
+[Service]
+User=agate
+Group=agate
+ExecStart=/usr/sbin/agate  \
+  --config-file /var/lib/agate/config/agate.yml \
+  --debug true \
+  
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

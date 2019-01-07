@@ -1,0 +1,16 @@
+# 2019-01-06 (cc) <paul4hough@gmail.com>
+#
+---
+version: 5
+
+defaults:
+  datadir: 'data'
+  data_hash: yaml_data
+
+hierarchy:
+  - name: 'Distribution Name'
+    path: "%{facts.os.name}.yaml"
+  - name: 'Operating System Family'
+    path: "%{facts.os.family}.yaml"
+  - name: 'defaults'
+    path: 'defaults.yaml'

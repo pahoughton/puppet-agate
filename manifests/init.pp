@@ -1,15 +1,27 @@
 # 2019-01-05 (cc) <paul4hough@gmail.com>
 #
-class agate(
-  Stdlib::Absolutepath $base_dir = '/var/lib/agate',
-  Stdlib::Absolutepath $config_fn = '/var/lib/agate/config/agate.yml',
-  String $user = 'agate',
-  String $group = 'agate',
-  String $listen_addr = ':1234',
-  Numeric $alert_days = 15,
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $hpsm_url = undef,
-  String $hpsm_user = undef,
-  String $hpsm_pass = undef,
+class agate (
+  Stdlib::Absolutepath $base_dir,
+  Stdlib::Absolutepath $config_fn,
+  String $user,
+  Boolean $manage_user,
+  String $group,
+  Boolean $manage_group,
+  String $listen_addr,
+  Numeric $alert_days,
+  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $hpsm_url,
+  String $hpsm_user,
+  String $hpsm_pass,
+  String $extra_options,
+  Boolean $debug,
   ) {
+
+  contain agate::install
+  contain agate::config
+  contain agate::service
+
+  Class['agate::install']
+  -> Class['agate::config']
+  -> Class['agate::service']
 
 }
