@@ -10,11 +10,18 @@ default_user    = 'agate'
 default_group   = 'agate'
 
 describe tobj, :type => :class do
-  [tobj,
-   'agate::install',
-   'agate::config',
-   'agate::service',
-  ].each { |cls|
-    it { is_expected.to contain_class(cls) }
-  }
+  on_supported_os.each do |os, facts|
+    context "on #{os}" do
+      let(:facts) do
+        facts
+      end
+      [tobj,
+       'agate::install',
+       'agate::config',
+       'agate::service',
+      ].each { |cls|
+        it { is_expected.to contain_class(cls) }
+      }
+    end
+  end
 end

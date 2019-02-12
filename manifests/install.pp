@@ -4,34 +4,63 @@ class agate::install {
 
   assert_private()
 
-  ensure_packages(['agate'], { ensure => 'present' })
+  if $agate::download_extension == '' {
+    file { "/opt/agate-${agate::version}":
+      ensure => directory,
+      owner  => 'root',
+      group  => 0, # 0 instead of root because OS X uses "wheel".
+      mode   => '0755',
+    }
+    -> archive { "/opt/agate-${agate::version}/agate":
+      ensure          => present,
+      source          => $agate::download_url,
+      checksum_verify => false,
+      before          => File["/opt/agate-${agate::version}/agate"],
+    }
+  } else {
+    archive { "/tmp/agate-${agate::version}.${agate::download_extension}":
+      ensure          => present,
+      extract         => true,
+      extract_path    => '/opt',
+      source          => $agate::download_url,
+      checksum_verify => false,
+      creates         => "/opt/agate-${agate::version}/agate",
+      cleanup         => true,
+      before          => File["/opt/agate-${agate::version}/agate"],
+    }
+  }
+  file { "/opt/agate-${agate::version}/agate":
+    owner => 'root',
+    group => 'root',
+    mode  => '0555',
+  }
+  -> file { "${agate::bin_dir}/agate":
+    ensure => link,
+    notify => Class['agate::service'],
+    target => "/opt/agate-${agate::version}/agate",
+  }
 
   if $agate::manage_user {
-    ensure_resource('user', [ $agate::user ], {
-      ensure => 'present',
-      system => true,
-    })
+    ensure_resource(
+      'user',[ $agate::user ],
+      {
+        ensure => 'present',
+        system => true,
+      }
+    )
 
     if $agate::manage_group {
       Group[$agate::group] -> User[$agate::user]
     }
   }
   if $agate::manage_group {
-    ensure_resource('group', [ $agate::group ],{
-      ensure => 'present',
-      system => true,
-    })
+    ensure_resource(
+      'group', [ $agate::group ],
+      {
+        ensure => 'present',
+        system => true,
+      })
   }
 
-  ensure_resource('file',
-  ["${agate::base_dir}/data",
-   "${agate::base_dir}/scripts",
-   "${agate::base_dir}/playbook",
-   "${agate::base_dir}/playbook/roles",],{
-     ensure => 'directory',
-     owner  => $agate::user,
-     group  => $agate::group,
-     mode   => '0775'
-     })
 
 }

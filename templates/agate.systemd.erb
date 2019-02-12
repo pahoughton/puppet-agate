@@ -8,9 +8,10 @@ After=network-online.target
 [Service]
 User=<%= scope.lookupvar('agate::user') %>
 Group=<%= scope.lookupvar('agate::group') %>
-ExecStart=/usr/sbin/agate  \
+ExecStart=<%= scope.lookupvar('agate::bin_dir') %>/agate  \
   <%= @daemon_flags.join(" \\\n  ") %> \
   <%= scope.lookupvar('agate::extra_options') %>
+
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 

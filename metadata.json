@@ -1,9 +1,9 @@
 {
   "name": "puppet-agate",
-  "version": "0.1.0-rc0",
+  "version": "0.2.2",
   "author": "Paul Houghton <paul4hough@gmail.com>",
   "summary": "install and configure agate service",
-  "license": "GPLv3",
+  "license": "GPL-3.0-or-later",
   "source": "https://github.com/pahoughton/puppet-agate.git",
   "project_page": "https://github.com/pahoughton/puppet-agate.git",
   "issue_url": "https://github.com/pahoughton/puppet-agate/issues",
@@ -11,7 +11,7 @@
     {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 4.25.0 < 6.0.0"
-    },
+    }
   ],
   "operatingsystem_support": [
     {
@@ -25,7 +25,7 @@
       "operatingsystemrelease": [
         "7"
       ]
-    },
+    }
   ],
   "requirements": [
     {

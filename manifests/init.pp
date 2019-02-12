@@ -1,19 +1,20 @@
 # 2019-01-05 (cc) <paul4hough@gmail.com>
 #
 class agate (
-  Stdlib::Absolutepath $base_dir,
-  Stdlib::Absolutepath $config_fn,
+  String $version,
+  Stdlib::Absolutepath $config_dir,
+  Stdlib::Absolutepath $config_file,
+  String $config_mode,
+  Stdlib::Absolutepath $data_dir,
+  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url,
+  String $download_extension,
+  Hash $config,
   String $user,
-  Boolean $manage_user,
   String $group,
+  Boolean $manage_user,
   Boolean $manage_group,
-  String $listen_addr,
-  Numeric $alert_days,
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $hpsm_url,
-  String $hpsm_user,
-  String $hpsm_pass,
+  Stdlib::Absolutepath $bin_dir,
   String $extra_options,
-  Boolean $debug,
   ) {
 
   contain agate::install

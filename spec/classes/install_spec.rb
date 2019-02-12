@@ -3,21 +3,16 @@
 require 'spec_helper'
 
 tobj = 'agate'
-
-default_dir     = '/var/lib/agate'
-default_cfg     = '/var/lib/agate/config/agate.yml'
+default_data    = '/opt/agate/data'
+default_cfg     = '/etc/agate/agate.yml'
 default_user    = 'agate'
 default_group   = 'agate'
 
 describe tobj, :type => :class do
   describe "#{tobj}::install" do
 
-    it { is_expected.to contain_package('agate') }
-
     context "with defaults" do
-      ["#{default_dir}/data",
-       "#{default_dir}/scripts",
-       "#{default_dir}/playbook/roles",
+      ["#{default_data}",
       ].each { |dir|
         it { is_expected.to contain_file(dir).with(
           'ensure' => 'directory',
@@ -28,13 +23,11 @@ describe tobj, :type => :class do
       }
     end
 
-    opt_dir = '/opt/agate'
-    context "when base_dir is #{opt_dir}" do
-      let (:params) {{ 'base_dir'.to_sym => opt_dir }}
+    data_dir = '/var/lib/agate'
+    context "when data_dir is #{data_dir}" do
+      let (:params) {{ 'data_dir'.to_sym => data_dir }}
 
-      ["#{opt_dir}/data",
-       "#{opt_dir}/scripts",
-       "#{opt_dir}/playbook/roles",
+      ["#{data_dir}",
       ].each { |dir|
         it { is_expected.to contain_file(dir).with(
           'ensure' => 'directory',

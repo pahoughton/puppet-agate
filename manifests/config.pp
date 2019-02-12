@@ -4,9 +4,21 @@ class agate::config {
 
   assert_private()
 
+  ensure_resource(
+    'file',
+    [ $agate::data_dir,
+      $agate::config_dir,],
+    {
+      ensure => 'directory',
+      owner  => $agate::user,
+      group  => $agate::group,
+      mode   => '0775'
+    }
+  )
+
   $daemon_flags = [
-   "--config-file ${agate::config_fn}",
-   "--debug ${agate::debug}",
+    "--config-file ${agate::config_file}",
+    "--data-dir ${agate::data_dir}",
   ]
   File {
     notify => Class['agate::service'],
@@ -17,13 +29,13 @@ class agate::config {
     content => template('agate/agate.systemd.erb'),
   }
 
-  file { $agate::config_fn:
-    ensure       => present,
-    owner        => $agate::user,
-    group        => $agate::group,
-    mode         => '0440',
-    notify       => Class['agate::service'],
-    content      => template('agate/agate.yml.erb'),
+  file { $agate::config_file:
+    ensure  => present,
+    owner   => $agate::user,
+    group   => $agate::group,
+    mode    => $agate::config_mode,
+    notify  => Class['agate::service'],
+    content => template('agate/agate.yml.erb'),
   }
 
 }
