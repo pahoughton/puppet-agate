@@ -3,7 +3,7 @@
 class agate::service {
 
   service { 'agate':
-      ensure => 'restart',
+      ensure => 'running',
       enable => true,
     }
 }
