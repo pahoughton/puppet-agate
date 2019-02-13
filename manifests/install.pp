@@ -24,12 +24,12 @@ class agate::install {
       extract_path    => '/opt',
       source          => $agate::download_url,
       checksum_verify => false,
-      creates         => "/opt/agate-${agate::version}/agate",
+      creates         => "/opt/agate-${agate::version}.amd64/agate",
       cleanup         => true,
-      before          => File["/opt/agate-${agate::version}/agate"],
+      before          => File["/opt/agate-${agate::version}.amd64/agate"],
     }
   }
-  file { "/opt/agate-${agate::version}/agate":
+  file { "/opt/agate-${agate::version}.amd64/agate":
     owner => 'root',
     group => 'root',
     mode  => '0555',
@@ -37,7 +37,7 @@ class agate::install {
   -> file { "${agate::bin_dir}/agate":
     ensure => link,
     notify => Class['agate::service'],
-    target => "/opt/agate-${agate::version}/agate",
+    target => "/opt/agate-${agate::version}.amd64/agate",
   }
 
   if $agate::manage_user {
