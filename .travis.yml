@@ -11,12 +11,8 @@ notifications:
 
 before_script:
   - uname -a
-  - sudo bash setup-product.bash
-  - autoconf --version
   - env
+  - bundle install
 
 script:
-  - autoreconf
-  - ./configure
-  - make test-system
-  - make install
+  - bundle exec rake test
