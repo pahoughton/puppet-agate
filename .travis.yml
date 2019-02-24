@@ -9,7 +9,8 @@ notifications:
     - paul4hough@gmail.com
 
 install:
-  - sudo apt install libaugeas-dev yamllint
+  - sudo apt install libaugeas-dev python3-pip
+  - sudo pip install yamllint
   - bundle install
 
 script:
