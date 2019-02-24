@@ -10,8 +10,6 @@ notifications:
     - paul4hough@gmail.com
 
 before_script:
-  - uname -a
-  - env
   - sudo apt install libaugeas-dev
   - bundle install
 
