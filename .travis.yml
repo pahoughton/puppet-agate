@@ -12,6 +12,7 @@ notifications:
 before_script:
   - uname -a
   - env
+  - sudo apt install libaugeas-dev
   - bundle install
 
 script:
