@@ -2,7 +2,6 @@
 #
 # (cc) <paul4hough@gmail.com>
 
-sudo: false
 dist: xenial
 language: ruby
 notifications:
