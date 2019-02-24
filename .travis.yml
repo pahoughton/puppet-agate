@@ -1,0 +1,22 @@
+# .travis.yml - 2019-02-24
+#
+# (cc) <paul4hough@gmail.com>
+
+sudo: false
+dist: xenial
+language: ruby
+notifications:
+  email:
+    - paul4hough@gmail.com
+
+before_script:
+  - uname -a
+  - sudo bash setup-product.bash
+  - autoconf --version
+  - env
+
+script:
+  - autoreconf
+  - ./configure
+  - make test-system
+  - make install
