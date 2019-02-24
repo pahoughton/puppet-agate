@@ -16,4 +16,8 @@ task :yamllint do
      " data"
 end
 
+desc 'all test'
 task :test => [:yamllint,:lint,:validate,:spec]
+
+desc 'travis-ci tasks'
+task :travis => [:lint,:validate,:spec]

@@ -9,9 +9,8 @@ notifications:
     - paul4hough@gmail.com
 
 install:
-  - sudo apt install libaugeas-dev python3-pip
-  - sudo pip install yamllint
+  - sudo apt install libaugeas-dev
   - bundle install
 
 script:
-  - bundle exec rake test
+  - bundle exec rake travis
