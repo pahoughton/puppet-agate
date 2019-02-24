@@ -8,7 +8,7 @@ notifications:
   email:
     - paul4hough@gmail.com
 
-before_script:
+install:
   - sudo apt install libaugeas-dev
   - bundle install
 
