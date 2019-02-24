@@ -9,7 +9,7 @@ notifications:
     - paul4hough@gmail.com
 
 install:
-  - sudo apt install libaugeas-dev
+  - sudo apt install libaugeas-dev yamllint
   - bundle install
 
 script:
