@@ -12,7 +12,7 @@ default_group   = 'agate'
 describe tobj, :type => :class do
   describe "#{tobj}::service" do
     it { is_expected.to contain_service('agate').with(
-      'ensure'     => 'restart',
+      'ensure'     => 'running',
       'enable'     => true
     )}
   end

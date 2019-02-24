@@ -1,13 +1,16 @@
 # 2019-01-06 (cc) <paul4hough@gmail.com>
 #
 ---
-agate::version: 0.2.2
+agate::version: 0.3.1
+agate::listen: ":4464"
 agate::config_dir: /etc/agate
 agate::config_file: "%{lookup('agate::config_dir')}/agate.yml"
 agate::config_mode: "0660"
 agate::data_dir: /opt/agate/data
 # yamllint disable-line rule:line-length
-agate::download_url: "https://github.com/pahoughton/agate/releases/download/v%{lookup('agate::version')}/agate-%{lookup('agate::version')}.amd64.tar.gz"
+agate::download_url: ~
+agate::download_url_base: >-
+  https://github.com/pahoughton/agate/releases/download
 agate::download_extension: tar.gz
 agate::user: agate
 agate::manage_user: true
@@ -16,18 +19,5 @@ agate::manage_group: true
 agate::bin_dir: /usr/local/bin
 agate::extra_options: ''
 agate::config:
-  listen-addr: ":4464"
-  ticket-default-sys: gitlab
-  ticket-default-grp: user/project
-  # scripts-dir: scripts
-  # playbook-dir: playbook
-  max-days: 15
-  close-resolved: true
-  gitlab-url: https://gitlab.com/api/v4
-  gitlab-token: secret-token
-  hpsm-base-url: https://hpsm/api/v3
-  hpsm-create-ep: incident2
-  hpsm-update-ep: incident2
-  hpsm-close-ep: incident3
-  hpsm-user: hpsm
-  hpsm-pass: pass
+  global:
+    retry: 1h

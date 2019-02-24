@@ -2,11 +2,13 @@
 #
 class agate (
   String $version,
+  String $listen,
   Stdlib::Absolutepath $config_dir,
   Stdlib::Absolutepath $config_file,
   String $config_mode,
   Stdlib::Absolutepath $data_dir,
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url,
+  Optional[String] $download_url,
+  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url_base,
   String $download_extension,
   Hash $config,
   String $user,
@@ -15,8 +17,13 @@ class agate (
   Boolean $manage_group,
   Stdlib::Absolutepath $bin_dir,
   String $extra_options,
-  ) {
+) {
 
+  $real_download_url = pick(
+    $download_url,
+    "${download_url_base}/v${version}/agate-${version}.amd64.${download_extension}")
+
+  notify { "agate version: ${version}": }
   contain agate::install
   contain agate::config
   contain agate::service

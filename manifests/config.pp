@@ -17,8 +17,9 @@ class agate::config {
   )
 
   $daemon_flags = [
-    "--config-file ${agate::config_file}",
-    "--data-dir ${agate::data_dir}",
+    "--addr ${agate::listen}",
+    "--config ${agate::config_file}",
+    "--data ${agate::data_dir}",
   ]
   File {
     notify => Class['agate::service'],

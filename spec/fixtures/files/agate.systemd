@@ -9,8 +9,9 @@ After=network-online.target
 User=agate
 Group=agate
 ExecStart=/usr/local/bin/agate  \
-  --config-file /etc/agate/agate.yml \
-  --data-dir /opt/agate/data \
+  --addr :4464 \
+  --config /etc/agate/agate.yml \
+  --data /opt/agate/data \
   
 
 ExecReload=/bin/kill -HUP $MAINPID

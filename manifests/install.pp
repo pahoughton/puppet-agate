@@ -4,6 +4,7 @@ class agate::install {
 
   assert_private()
 
+  notify { "durl: ${agate::real_download_url}": }
   if $agate::download_extension == '' {
     file { "/opt/agate-${agate::version}":
       ensure => directory,
@@ -13,7 +14,7 @@ class agate::install {
     }
     -> archive { "/opt/agate-${agate::version}/agate":
       ensure          => present,
-      source          => $agate::download_url,
+      source          => $agate::real_download_url,
       checksum_verify => false,
       before          => File["/opt/agate-${agate::version}/agate"],
     }
@@ -22,7 +23,7 @@ class agate::install {
       ensure          => present,
       extract         => true,
       extract_path    => '/opt',
-      source          => $agate::download_url,
+      source          => $agate::real_download_url,
       checksum_verify => false,
       creates         => "/opt/agate-${agate::version}.amd64/agate",
       cleanup         => true,
